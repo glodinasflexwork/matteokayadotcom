@@ -1,88 +1,270 @@
 import Image from "next/image";
 
 export default function Home() {
-	return (
-		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-			<main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-				<Image
-					className="dark:invert"
-					src="/next.svg"
-					alt="Next.js logo"
-					width={180}
-					height={38}
-					priority
-				/>
-				<ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-					<li className="mb-2 tracking-[-.01em]">
-						Get started by editing{" "}
-						<code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-							src/app/page.tsx
-						</code>
-						.
-					</li>
-					<li className="tracking-[-.01em]">
-						Save and see your changes instantly.
-					</li>
-				</ol>
+  return (
+    <>
+      {/* Header */}
+      <header className="site-header">
+        <div className="logo">
+          <span className="logo-icon">✝</span>
+          <span>Botez Invites</span>
+        </div>
+        <div className="nav-tabs">
+          <div className="nav-tab active">Home</div>
+        </div>
+        <div className="header-actions">
+          <button className="preview-btn">Preview</button>
+        </div>
+      </header>
 
-				<div className="flex gap-4 items-center flex-col sm:flex-row">
-					<a
-						className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-						href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Read our docs
-					</a>
-				</div>
-			</main>
-			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/file.svg"
-						alt="File icon"
-						width={16}
-						height={16}
-					/>
-					Learn
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/window.svg"
-						alt="Window icon"
-						width={16}
-						height={16}
-					/>
-					Examples
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image
-						aria-hidden
-						src="/globe.svg"
-						alt="Globe icon"
-						width={16}
-						height={16}
-					/>
-					Go to nextjs.org →
-				</a>
-			</footer>
-		</div>
-	);
+      {/* Main Content */}
+      <main className="grid-container">
+        {/* Hero Card - Main Event */}
+        <section className="hero-section animate-in">
+          <div className="glass-card hero-card">
+            <div className="hero-image-container">
+              <div className="hosting-badge">
+                <span>✝</span>
+                <span>Botez</span>
+              </div>
+              <Image
+                src="/baby-matteo.png"
+                alt="Matteo Kaya Botez"
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </div>
+            <div className="event-info">
+              <h1 className="event-title">Matteo Kaya Botez</h1>
+              <p className="event-date">Sat, Feb 7, 2:00 PM - 3:00 PM</p>
+              <div className="location-pill">
+                Romanian Orthodox Church of St Gregory the Theologian in Schiedam
+              </div>
+              <button className="rsvp-btn">
+                <span>🙏</span>
+                RSVP to Ceremony
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Host Note Card */}
+        <div className="glass-card info-card animate-in delay-1">
+          <div className="card-header">
+            <div className="card-icon host">
+              <span>👨‍👩‍👦</span>
+            </div>
+            <div>
+              <div className="card-title">Kaya Family</div>
+              <div className="card-subtitle">Host Note</div>
+            </div>
+          </div>
+          <div style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '15px', lineHeight: '1.6' }}>
+            <p style={{ marginBottom: '12px' }}>
+              Dear family and friends,
+            </p>
+            <p style={{ marginBottom: '12px' }}>
+              We are blessed to invite you to witness the holy baptism of our beloved son, 
+              <strong style={{ color: '#d4a853' }}> Matteo Kaya Botez</strong>.
+            </p>
+            <p>
+              Join us for this sacred ceremony as Matteo receives his Christian name and 
+              becomes a member of the Orthodox Church. Your presence and prayers mean 
+              everything to us. 🕊️
+            </p>
+          </div>
+        </div>
+
+        {/* Weather Card */}
+        <div className="glass-card info-card animate-in delay-2">
+          <div className="card-header">
+            <div className="card-icon weather">
+              <span>🌤️</span>
+            </div>
+            <div>
+              <div className="card-title">Weather</div>
+              <div className="card-subtitle">On the Day</div>
+            </div>
+          </div>
+          <div className="weather-display">
+            <div>
+              <div className="weather-location">Schiedam</div>
+              <div className="weather-temp">8°</div>
+            </div>
+            <div className="weather-condition">
+              <div>☁️</div>
+              <div className="weather-status">Partly Cloudy</div>
+              <div className="weather-hi-lo">H: 10° L: 5°</div>
+            </div>
+          </div>
+          <div className="hourly-forecast">
+            <div className="hour-item">
+              <span>2 PM</span>
+              <span className="hour-icon">⛅</span>
+              <span>8°</span>
+            </div>
+            <div className="hour-item">
+              <span>2:30</span>
+              <span className="hour-icon">☁️</span>
+              <span>8°</span>
+            </div>
+            <div className="hour-item">
+              <span>3 PM</span>
+              <span className="hour-icon">⛅</span>
+              <span>7°</span>
+            </div>
+            <div className="hour-item">
+              <span>3:30</span>
+              <span className="hour-icon">☁️</span>
+              <span>7°</span>
+            </div>
+            <div className="hour-item">
+              <span>4 PM</span>
+              <span className="hour-icon">🌙</span>
+              <span>6°</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Map Card */}
+        <div className="glass-card info-card animate-in delay-3">
+          <div className="card-header">
+            <div className="card-icon map">
+              <span>📍</span>
+            </div>
+            <div>
+              <div className="card-title">Maps</div>
+              <div className="card-subtitle">Romanian Orthodox Church of St Gregory...</div>
+            </div>
+          </div>
+          <div className="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2460.8!2d4.3892!3d51.9244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c43c38b7c7f8b7%3A0x8b7c7f8b7c7f8b7c!2sVlaardingerdijk%2050%2C%203117%20EW%20Schiedam!5e0!3m2!1sen!2snl!4v1"
+              width="100%"
+              height="100%"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Church Location"
+            />
+          </div>
+          <div style={{ marginTop: '12px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+            <div style={{ fontWeight: '600', marginBottom: '4px' }}>Vlaardingerdijk 50</div>
+            <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px' }}>3117 EW Schiedam, Netherlands</div>
+            <a 
+              href="https://maps.google.com/?q=Vlaardingerdijk+50,+3117+EW+Schiedam"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ 
+                display: 'inline-block', 
+                marginTop: '8px', 
+                color: '#0a84ff', 
+                fontSize: '14px',
+                textDecoration: 'none'
+              }}
+            >
+              Get Directions →
+            </a>
+          </div>
+        </div>
+
+        {/* Photos Card */}
+        <div className="glass-card info-card animate-in delay-4">
+          <div className="card-header">
+            <div className="card-icon photos">
+              <span>📸</span>
+            </div>
+            <div>
+              <div className="card-title">Photos</div>
+              <div className="card-subtitle">Shared Album</div>
+            </div>
+          </div>
+          <div className="photos-grid">
+            <div className="photo-placeholder">🖼️</div>
+            <div className="photo-placeholder">📷</div>
+            <div className="photo-placeholder">👪</div>
+          </div>
+          <div className="add-photos-btn">
+            <span>•••</span>
+            <span>Add Photos</span>
+          </div>
+        </div>
+
+        {/* Event Details Card */}
+        <div className="glass-card info-card animate-in delay-5">
+          <div className="card-header">
+            <div className="card-icon link">
+              <span>📋</span>
+            </div>
+            <div>
+              <div className="card-title">Event Details</div>
+              <div className="card-subtitle">What to Know</div>
+            </div>
+          </div>
+          <div style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', lineHeight: '1.7' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>📅 Date & Time</div>
+              <div>Saturday, February 7, 2026</div>
+              <div>2:00 PM - 3:00 PM</div>
+            </div>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>⛪ Church</div>
+              <div>Romanian Orthodox Church</div>
+              <div>St Gregory the Theologian</div>
+            </div>
+            <div>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>👔 Dress Code</div>
+              <div>Smart Casual / Semi-Formal</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Card */}
+        <div className="glass-card info-card animate-in delay-6">
+          <div className="card-header">
+            <div className="card-icon" style={{ background: 'linear-gradient(135deg, #5856d6, #af52de)' }}>
+              <span>💌</span>
+            </div>
+            <div>
+              <div className="card-title">Contact</div>
+              <div className="card-subtitle">Get in Touch</div>
+            </div>
+          </div>
+          <div className="link-preview">
+            <div className="link-avatar">M</div>
+            <div>
+              <div style={{ fontWeight: '500' }}>Matteo Kaya Botez</div>
+              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>Guest of Honor 👶</div>
+            </div>
+          </div>
+          <div style={{ marginTop: '16px', padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', textAlign: 'center' }}>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
+              Questions? Reach out to us!
+            </p>
+            <a 
+              href="mailto:cihat@glodinasfinance.com"
+              style={{ 
+                color: '#0a84ff', 
+                fontSize: '14px',
+                textDecoration: 'none'
+              }}
+            >
+              cihat@glodinasfinance.com
+            </a>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer style={{ 
+        textAlign: 'center', 
+        padding: '40px 20px', 
+        color: 'rgba(255,255,255,0.4)',
+        fontSize: '13px'
+      }}>
+        <p style={{ marginBottom: '8px' }}>With love from the Kaya & Botez Family</p>
+        <p>✝ God Bless Matteo ✝</p>
+      </footer>
+    </>
+  );
 }

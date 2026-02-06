@@ -347,7 +347,7 @@ body {
 		grid-template-columns: repeat(2, 1fr);
 		padding: 40px;
 	}
-	
+
 	.hero-section {
 		grid-row: span 2;
 	}
@@ -445,6 +445,7 @@ body {
 		opacity: 0;
 		transform: translateY(20px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -455,12 +456,29 @@ body {
 	animation: fadeIn 0.6s ease forwards;
 }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
+.delay-1 {
+	animation-delay: 0.1s;
+}
+
+.delay-2 {
+	animation-delay: 0.2s;
+}
+
+.delay-3 {
+	animation-delay: 0.3s;
+}
+
+.delay-4 {
+	animation-delay: 0.4s;
+}
+
+.delay-5 {
+	animation-delay: 0.5s;
+}
+
+.delay-6 {
+	animation-delay: 0.6s;
+}
 
 /* RSVP Button */
 .rsvp-btn {
@@ -484,6 +502,112 @@ body {
 .rsvp-btn:hover {
 	transform: scale(1.02);
 	box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3);
+}
+
+/* Nași Gift Tiers */
+.nasi-card {
+	background: linear-gradient(135deg, rgba(44, 44, 46, 0.9) 0%, rgba(28, 28, 30, 0.95) 100%);
+}
+
+.gift-tiers {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.gift-tier {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 16px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	text-decoration: none;
+	color: #fff;
+	transition: all 0.3s ease;
+	flex: 1;
+	min-width: 70px;
+	position: relative;
+}
+
+.gift-tier:hover {
+	background: rgba(212, 168, 83, 0.2);
+	border-color: var(--accent-gold);
+	transform: translateY(-2px);
+}
+
+.gift-tier.popular {
+	background: linear-gradient(135deg, rgba(212, 168, 83, 0.2), rgba(184, 148, 63, 0.1));
+	border-color: var(--accent-gold);
+}
+
+.gift-emoji {
+	font-size: 24px;
+	margin-bottom: 4px;
+}
+
+.gift-amount {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.popular-badge {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	background: var(--accent-gold);
+	color: #1c1c1e;
+	font-size: 10px;
+	font-weight: 700;
+	padding: 2px 6px;
+	border-radius: 8px;
+	text-transform: uppercase;
+}
+
+/* Leaderboard */
+.leaderboard {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.leaderboard-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.leaderboard-item.top-three {
+	background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 184, 0, 0.05));
+}
+
+.leaderboard-rank {
+	font-size: 20px;
+	width: 32px;
+	text-align: center;
+}
+
+.leaderboard-name {
+	flex: 1;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.leaderboard-amount {
+	font-weight: 600;
+	color: var(--accent-gold);
 }
 
 /* Scrollbar */

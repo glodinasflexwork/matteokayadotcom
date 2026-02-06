@@ -1,26 +1,115 @@
-import Image from "next/image";
+'use client';
 
-// Gift tiers with Stripe prices
+import Image from "next/image";
+import { useState, useEffect } from "react";
+
+// Gift tiers with achievements and badges
 const GIFT_TIERS = [
-  { amount: 50, label: "€50", emoji: "🙏", priceId: "price_1SxulmKopO2jXhaHuHuAHucM" },
-  { amount: 100, label: "€100", emoji: "💝", priceId: "price_1SxulmKopO2jXhaHvUvDx45u" },
-  { amount: 150, label: "€150", emoji: "⭐", priceId: "price_1SxulnKopO2jXhaHU55nfbyj", popular: true },
-  { amount: 250, label: "€250", emoji: "👑", priceId: "price_1SxuloKopO2jXhaHqNhSSVeD" },
-  { amount: 500, label: "€500", emoji: "💎", priceId: "price_1SxuloKopO2jXhaHSP9GOZRv" },
+  {
+    amount: 50,
+    label: "€50",
+    emoji: "🙏",
+    badge: "Binecuvântare",
+    badgeColor: "#cd7f32",
+    title: "Prieten al Familiei",
+    paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
+  },
+  {
+    amount: 100,
+    label: "€100",
+    emoji: "💝",
+    badge: "Dar de Suflet",
+    badgeColor: "#c0c0c0",
+    title: "Susținător",
+    paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
+  },
+  {
+    amount: 150,
+    label: "€150",
+    emoji: "⭐",
+    badge: "Naș de Aur",
+    badgeColor: "#ffd700",
+    title: "Naș Onorific",
+    popular: true,
+    paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
+  },
+  {
+    amount: 250,
+    label: "€250",
+    emoji: "👑",
+    badge: "Protector",
+    badgeColor: "#9966cc",
+    title: "Protector Sfânt",
+    paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
+  },
+  {
+    amount: 500,
+    label: "€500",
+    emoji: "💎",
+    badge: "Înger Păzitor",
+    badgeColor: "#00d4ff",
+    title: "Înger Păzitor",
+    paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
+  },
 ];
 
-// Top Nași leaderboard (can be updated manually after payments)
-const TOP_NASI = [
-  { rank: 1, name: "Be the first Naș!", amount: null, emoji: "🥇" },
-  { rank: 2, name: "—", amount: null, emoji: "🥈" },
-  { rank: 3, name: "—", amount: null, emoji: "🥉" },
-  { rank: 4, name: "—", amount: null, emoji: "4️⃣" },
-  { rank: 5, name: "—", amount: null, emoji: "5️⃣" },
+// Top Nași leaderboard with achievements
+const TOP_NASI: Array<{
+  rank: number;
+  name: string;
+  amount: number | null;
+  badge: string | null;
+  badgeColor: string | null;
+  title: string | null;
+  isNew?: boolean;
+}> = [
+    { rank: 1, name: "Fii primul Naș!", amount: null, badge: null, badgeColor: null, title: null },
+    { rank: 2, name: "—", amount: null, badge: null, badgeColor: null, title: null },
+    { rank: 3, name: "—", amount: null, badge: null, badgeColor: null, title: null },
+    { rank: 4, name: "—", amount: null, badge: null, badgeColor: null, title: null },
+    { rank: 5, name: "—", amount: null, badge: null, badgeColor: null, title: null },
+  ];
+
+// Funding goal
+const FUNDING_GOAL = 1000;
+const CURRENT_FUNDING = 0; // Update as donations come in
+
+// Achievement unlocks
+const ACHIEVEMENTS = [
+  { icon: "🥇", name: "Primul Naș", description: "Be the first to donate", unlocked: false },
+  { icon: "🎯", name: "Jumătate!", description: "Help reach 50% of goal", unlocked: false },
+  { icon: "🏆", name: "Obiectiv Atins", description: "Help reach the goal", unlocked: false },
+  { icon: "👑", name: "Top Naș", description: "Become #1 on leaderboard", unlocked: false },
 ];
 
 export default function Home() {
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<number | null>(null);
+  const fundingPercentage = Math.min((CURRENT_FUNDING / FUNDING_GOAL) * 100, 100);
+
+  // Confetti effect when hovering popular tier
+  const handleTierHover = (amount: number) => {
+    if (amount >= 150) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 1000);
+    }
+  };
+
   return (
     <>
+      {/* Confetti overlay */}
+      {showConfetti && (
+        <div className="confetti-container">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className="confetti" style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 0.5}s`,
+              backgroundColor: ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96c93d'][Math.floor(Math.random() * 5)]
+            }} />
+          ))}
+        </div>
+      )}
+
       {/* Header */}
       <header className="site-header">
         <div className="logo">
@@ -94,7 +183,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Nași Gift Section - NEW */}
+        {/* Gamified Nași Gift Section */}
         <div className="glass-card info-card nasi-card animate-in delay-2">
           <div className="card-header">
             <div className="card-icon" style={{ background: 'linear-gradient(135deg, #d4a853, #b8943f)' }}>
@@ -102,58 +191,133 @@ export default function Home() {
             </div>
             <div>
               <div className="card-title">Nași & Gifts</div>
-              <div className="card-subtitle">Bless Matteo with a Gift</div>
+              <div className="card-subtitle">Bless Matteo & Unlock Achievements</div>
             </div>
           </div>
 
-          {/* Gift Amount Options */}
-          <div className="gift-tiers">
+          {/* Funding Goal Progress */}
+          <div className="funding-goal">
+            <div className="funding-header">
+              <span className="funding-label">🎯 Funding Goal</span>
+              <span className="funding-amount">€{CURRENT_FUNDING} / €{FUNDING_GOAL}</span>
+            </div>
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar-fill"
+                style={{ width: `${fundingPercentage}%` }}
+              />
+              <div className="progress-milestones">
+                <div className="milestone" style={{ left: '25%' }}>
+                  <span className="milestone-icon">🌟</span>
+                </div>
+                <div className="milestone" style={{ left: '50%' }}>
+                  <span className="milestone-icon">⭐</span>
+                </div>
+                <div className="milestone" style={{ left: '75%' }}>
+                  <span className="milestone-icon">🏆</span>
+                </div>
+                <div className="milestone" style={{ left: '100%' }}>
+                  <span className="milestone-icon">👑</span>
+                </div>
+              </div>
+            </div>
+            <p className="funding-subtitle">Help us reach our goal for Matteo's future!</p>
+          </div>
+
+          {/* Gift Amount Options with Badges */}
+          <div className="gift-tiers-gamified">
             {GIFT_TIERS.map((tier) => (
               <a
                 key={tier.amount}
-                href={`https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f`}
+                href={tier.paymentLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`gift-tier ${tier.popular ? 'popular' : ''}`}
+                className={`gift-tier-gamified ${tier.popular ? 'popular' : ''} ${selectedTier === tier.amount ? 'selected' : ''}`}
+                onMouseEnter={() => handleTierHover(tier.amount)}
+                onClick={() => setSelectedTier(tier.amount)}
               >
-                <span className="gift-emoji">{tier.emoji}</span>
-                <span className="gift-amount">{tier.label}</span>
-                {tier.popular && <span className="popular-badge">Popular</span>}
+                <div className="tier-badge" style={{ backgroundColor: tier.badgeColor }}>
+                  {tier.badge}
+                </div>
+                <span className="gift-emoji-large">{tier.emoji}</span>
+                <span className="gift-amount-large">{tier.label}</span>
+                <span className="tier-title">{tier.title}</span>
+                {tier.popular && <span className="popular-badge-animated">🔥 Popular</span>}
               </a>
             ))}
           </div>
 
-          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', textAlign: 'center', marginTop: '12px' }}>
-            Your blessing gift will help Matteo's future ✨
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', textAlign: 'center', marginTop: '16px' }}>
+            Every gift unlocks a unique badge & title! ✨
           </p>
         </div>
 
-        {/* Top Nași Leaderboard - NEW */}
-        <div className="glass-card info-card animate-in delay-3">
+        {/* Gamified Leaderboard */}
+        <div className="glass-card info-card leaderboard-card animate-in delay-3">
           <div className="card-header">
             <div className="card-icon" style={{ background: 'linear-gradient(135deg, #ffd700, #ffb800)' }}>
               <span>🏆</span>
             </div>
             <div>
               <div className="card-title">Top 5 Nași</div>
-              <div className="card-subtitle">Leaderboard</div>
+              <div className="card-subtitle">Hall of Fame</div>
             </div>
           </div>
 
-          <div className="leaderboard">
-            {TOP_NASI.map((nasi) => (
-              <div key={nasi.rank} className={`leaderboard-item ${nasi.rank <= 3 ? 'top-three' : ''}`}>
-                <span className="leaderboard-rank">{nasi.emoji}</span>
-                <span className="leaderboard-name">{nasi.name}</span>
-                <span className="leaderboard-amount">
-                  {nasi.amount ? `€${nasi.amount}` : '—'}
-                </span>
+          <div className="leaderboard-gamified">
+            {TOP_NASI.map((nasi, index) => (
+              <div
+                key={nasi.rank}
+                className={`leaderboard-row ${nasi.rank <= 3 ? 'top-three' : ''} ${nasi.isNew ? 'new-entry' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="rank-medal">
+                  {nasi.rank === 1 && '🥇'}
+                  {nasi.rank === 2 && '🥈'}
+                  {nasi.rank === 3 && '🥉'}
+                  {nasi.rank > 3 && <span className="rank-number">{nasi.rank}</span>}
+                </div>
+                <div className="nasi-info">
+                  <span className="nasi-name">{nasi.name}</span>
+                  {nasi.title && (
+                    <span className="nasi-title" style={{ color: nasi.badgeColor || '#d4a853' }}>
+                      {nasi.title}
+                    </span>
+                  )}
+                </div>
+                <div className="nasi-amount-badge">
+                  {nasi.badge && (
+                    <span className="mini-badge" style={{ backgroundColor: nasi.badgeColor || '#d4a853' }}>
+                      {nasi.badge}
+                    </span>
+                  )}
+                  <span className="amount-value">
+                    {nasi.amount ? `€${nasi.amount}` : '—'}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
 
-          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', textAlign: 'center', marginTop: '12px' }}>
-            Be among the first to support Matteo! 🎉
+          {/* Achievement Badges */}
+          <div className="achievements-section">
+            <div className="achievements-header">🎖️ Achievements to Unlock</div>
+            <div className="achievements-grid">
+              {ACHIEVEMENTS.map((achievement, index) => (
+                <div
+                  key={index}
+                  className={`achievement-badge ${achievement.unlocked ? 'unlocked' : 'locked'}`}
+                  title={achievement.description}
+                >
+                  <span className="achievement-icon">{achievement.icon}</span>
+                  <span className="achievement-name">{achievement.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', textAlign: 'center', marginTop: '16px' }}>
+            Be among the first to claim your spot! 🎉
           </p>
         </div>
 

@@ -426,6 +426,41 @@ body {
 	background: rgba(255, 255, 255, 0.25);
 }
 
+/* Language Switcher */
+.language-switcher {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background: rgba(255, 255, 255, 0.1);
+	padding: 4px;
+	border-radius: 16px;
+}
+
+.lang-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: transparent;
+	border: 2px solid transparent;
+	cursor: pointer;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+	background: rgba(255, 255, 255, 0.15);
+	transform: scale(1.1);
+}
+
+.lang-btn.active {
+	background: rgba(255, 255, 255, 0.2);
+	border-color: var(--accent-gold);
+	transform: scale(1.05);
+}
+
 /* Cross Icon */
 .cross-icon {
 	position: relative;

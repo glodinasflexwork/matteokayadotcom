@@ -3,6 +3,241 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+// Translations
+const translations = {
+  en: {
+    // Header
+    home: "Home",
+    preview: "Preview",
+
+    // Hero
+    eventDate: "Sat, Feb 7, 2:00 PM - 3:00 PM",
+    churchName: "Romanian Orthodox Church of St Gregory the Theologian in Schiedam",
+    rsvpButton: "RSVP to Ceremony",
+
+    // Host Note
+    hostTitle: "Kaya Family",
+    hostSubtitle: "Host Note",
+    hostDear: "Dear family and friends,",
+    hostMessage1: "We are blessed to invite you to witness the holy baptism of our beloved son,",
+    hostMessage2: "Join us for this sacred ceremony as Matteo receives his Christian name and becomes a member of the Orthodox Church. Your presence and prayers mean everything to us. 🕊️",
+
+    // Nași & Gifts
+    nasiTitle: "Nași & Gifts",
+    nasiSubtitle: "Bless Matteo & Unlock Achievements",
+    fundingGoal: "Funding Goal",
+    fundingHelp: "Help us reach our goal for Matteo's future!",
+    everyGift: "Every gift unlocks a unique badge & title! ✨",
+
+    // Gift Tiers
+    tier50: "Friend of Family",
+    tier100: "Supporter",
+    tier150: "Honorary Godparent",
+    tier250: "Holy Protector",
+    tier500: "Guardian Angel",
+    popular: "Popular",
+
+    // Leaderboard
+    leaderboardTitle: "Top 5 Nași",
+    leaderboardSubtitle: "Hall of Fame",
+    beFirst: "Be the first Naș!",
+    beAmong: "Be among the first to support Matteo! 🎉",
+
+    // Achievements
+    achievementsTitle: "🎖️ Achievements to Unlock",
+    achFirst: "First Naș",
+    achHalf: "Halfway!",
+    achGoal: "Goal Reached",
+    achTop: "Top Naș",
+
+    // Weather
+    weatherTitle: "Weather",
+    weatherSubtitle: "On the Day",
+    partlyCloudy: "Partly Cloudy",
+
+    // Maps
+    mapsTitle: "Maps",
+    getDirections: "Get Directions →",
+
+    // Photos
+    photosTitle: "Photos",
+    sharedAlbum: "Shared Album",
+    addPhotos: "Add Photos",
+
+    // Event Details
+    detailsTitle: "Event Details",
+    detailsSubtitle: "What to Know",
+    dateTime: "Date & Time",
+    church: "Church",
+    dressCode: "Dress Code",
+    dressCodeValue: "Smart Casual / Semi-Formal",
+
+    // Contact
+    contactTitle: "Contact",
+    contactSubtitle: "Get in Touch",
+    guestOfHonor: "Guest of Honor 👶",
+    questions: "Questions? Reach out to us!",
+
+    // Footer
+    footerLove: "With love from the Kaya & Botez Family",
+    footerBless: "✝ God Bless Matteo ✝",
+  },
+  nl: {
+    // Header
+    home: "Home",
+    preview: "Voorbeeld",
+
+    // Hero
+    eventDate: "Za, 7 feb, 14:00 - 15:00",
+    churchName: "Roemeens-Orthodoxe Kerk van H. Gregorius de Theoloog in Schiedam",
+    rsvpButton: "Bevestig Aanwezigheid",
+
+    // Host Note
+    hostTitle: "Familie Kaya",
+    hostSubtitle: "Bericht van de Gastheer",
+    hostDear: "Lieve familie en vrienden,",
+    hostMessage1: "Wij zijn gezegend om u uit te nodigen om getuige te zijn van de heilige doop van onze geliefde zoon,",
+    hostMessage2: "Sluit u bij ons aan voor deze heilige ceremonie wanneer Matteo zijn christelijke naam ontvangt en lid wordt van de Orthodoxe Kerk. Uw aanwezigheid en gebeden betekenen alles voor ons. 🕊️",
+
+    // Nași & Gifts
+    nasiTitle: "Nași & Cadeaus",
+    nasiSubtitle: "Zegen Matteo & Ontgrendel Prestaties",
+    fundingGoal: "Doel",
+    fundingHelp: "Help ons het doel te bereiken voor Matteo's toekomst!",
+    everyGift: "Elk cadeau ontgrendelt een unieke badge & titel! ✨",
+
+    // Gift Tiers
+    tier50: "Vriend van de Familie",
+    tier100: "Ondersteuner",
+    tier150: "Eredoopouder",
+    tier250: "Heilige Beschermer",
+    tier500: "Beschermengel",
+    popular: "Populair",
+
+    // Leaderboard
+    leaderboardTitle: "Top 5 Nași",
+    leaderboardSubtitle: "Hall of Fame",
+    beFirst: "Wees de eerste Naș!",
+    beAmong: "Wees een van de eersten om Matteo te steunen! 🎉",
+
+    // Achievements
+    achievementsTitle: "🎖️ Prestaties om te Ontgrendelen",
+    achFirst: "Eerste Naș",
+    achHalf: "Halverwege!",
+    achGoal: "Doel Bereikt",
+    achTop: "Top Naș",
+
+    // Weather
+    weatherTitle: "Weer",
+    weatherSubtitle: "Op de Dag",
+    partlyCloudy: "Gedeeltelijk Bewolkt",
+
+    // Maps
+    mapsTitle: "Kaarten",
+    getDirections: "Routebeschrijving →",
+
+    // Photos
+    photosTitle: "Foto's",
+    sharedAlbum: "Gedeeld Album",
+    addPhotos: "Foto's Toevoegen",
+
+    // Event Details
+    detailsTitle: "Evenement Details",
+    detailsSubtitle: "Wat te Weten",
+    dateTime: "Datum & Tijd",
+    church: "Kerk",
+    dressCode: "Dresscode",
+    dressCodeValue: "Smart Casual / Semi-Formeel",
+
+    // Contact
+    contactTitle: "Contact",
+    contactSubtitle: "Neem Contact Op",
+    guestOfHonor: "Eregast 👶",
+    questions: "Vragen? Neem contact met ons op!",
+
+    // Footer
+    footerLove: "Met liefde van de Familie Kaya & Botez",
+    footerBless: "✝ God Zegene Matteo ✝",
+  },
+  ro: {
+    // Header
+    home: "Acasă",
+    preview: "Previzualizare",
+
+    // Hero
+    eventDate: "Sâm, 7 Feb, 14:00 - 15:00",
+    churchName: "Biserica Ortodoxă Română Sf. Grigorie Teologul din Schiedam",
+    rsvpButton: "Confirmă Participarea",
+
+    // Host Note
+    hostTitle: "Familia Kaya",
+    hostSubtitle: "Mesaj de la Gazdă",
+    hostDear: "Dragă familie și prieteni,",
+    hostMessage1: "Suntem binecuvântați să vă invităm să fiți martori la sfântul botez al iubitului nostru fiu,",
+    hostMessage2: "Alăturați-vă nouă pentru această ceremonie sfântă când Matteo își primește numele creștin și devine membru al Bisericii Ortodoxe. Prezența și rugăciunile voastre înseamnă totul pentru noi. 🕊️",
+
+    // Nași & Gifts
+    nasiTitle: "Nași & Daruri",
+    nasiSubtitle: "Binecuvântează-l pe Matteo & Deblochează Realizări",
+    fundingGoal: "Obiectiv",
+    fundingHelp: "Ajută-ne să atingem obiectivul pentru viitorul lui Matteo!",
+    everyGift: "Fiecare dar deblochează o insignă și un titlu unic! ✨",
+
+    // Gift Tiers
+    tier50: "Prieten al Familiei",
+    tier100: "Susținător",
+    tier150: "Naș Onorific",
+    tier250: "Protector Sfânt",
+    tier500: "Înger Păzitor",
+    popular: "Popular",
+
+    // Leaderboard
+    leaderboardTitle: "Top 5 Nași",
+    leaderboardSubtitle: "Sala Faimei",
+    beFirst: "Fii primul Naș!",
+    beAmong: "Fii printre primii care îl susțin pe Matteo! 🎉",
+
+    // Achievements
+    achievementsTitle: "🎖️ Realizări de Deblocat",
+    achFirst: "Primul Naș",
+    achHalf: "Jumătate!",
+    achGoal: "Obiectiv Atins",
+    achTop: "Top Naș",
+
+    // Weather
+    weatherTitle: "Vremea",
+    weatherSubtitle: "În Ziua Evenimentului",
+    partlyCloudy: "Parțial Înnorat",
+
+    // Maps
+    mapsTitle: "Hartă",
+    getDirections: "Obține Direcții →",
+
+    // Photos
+    photosTitle: "Fotografii",
+    sharedAlbum: "Album Partajat",
+    addPhotos: "Adaugă Fotografii",
+
+    // Event Details
+    detailsTitle: "Detalii Eveniment",
+    detailsSubtitle: "Ce Trebuie Să Știi",
+    dateTime: "Data & Ora",
+    church: "Biserica",
+    dressCode: "Cod Vestimentar",
+    dressCodeValue: "Smart Casual / Semi-Formal",
+
+    // Contact
+    contactTitle: "Contact",
+    contactSubtitle: "Ia Legătura",
+    guestOfHonor: "Oaspete de Onoare 👶",
+    questions: "Întrebări? Contactează-ne!",
+
+    // Footer
+    footerLove: "Cu dragoste de la Familia Kaya & Botez",
+    footerBless: "✝ Dumnezeu să-l Binecuvânteze pe Matteo ✝",
+  },
+};
+
 // Gift tiers with achievements and badges
 const GIFT_TIERS = [
   {
@@ -11,7 +246,7 @@ const GIFT_TIERS = [
     emoji: "🙏",
     badge: "Binecuvântare",
     badgeColor: "#cd7f32",
-    title: "Prieten al Familiei",
+    titleKey: "tier50",
     paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
   },
   {
@@ -20,7 +255,7 @@ const GIFT_TIERS = [
     emoji: "💝",
     badge: "Dar de Suflet",
     badgeColor: "#c0c0c0",
-    title: "Susținător",
+    titleKey: "tier100",
     paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
   },
   {
@@ -29,7 +264,7 @@ const GIFT_TIERS = [
     emoji: "⭐",
     badge: "Naș de Aur",
     badgeColor: "#ffd700",
-    title: "Naș Onorific",
+    titleKey: "tier150",
     popular: true,
     paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
   },
@@ -39,7 +274,7 @@ const GIFT_TIERS = [
     emoji: "👑",
     badge: "Protector",
     badgeColor: "#9966cc",
-    title: "Protector Sfânt",
+    titleKey: "tier250",
     paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
   },
   {
@@ -48,7 +283,7 @@ const GIFT_TIERS = [
     emoji: "💎",
     badge: "Înger Păzitor",
     badgeColor: "#00d4ff",
-    title: "Înger Păzitor",
+    titleKey: "tier500",
     paymentLink: "https://pay.glodinasfinance.com/b/cNifZi2w8gqwevp5Xjgbm0f"
   },
 ];
@@ -63,7 +298,7 @@ const TOP_NASI: Array<{
   title: string | null;
   isNew?: boolean;
 }> = [
-    { rank: 1, name: "Fii primul Naș!", amount: null, badge: null, badgeColor: null, title: null },
+    { rank: 1, name: "", amount: null, badge: null, badgeColor: null, title: null },
     { rank: 2, name: "—", amount: null, badge: null, badgeColor: null, title: null },
     { rank: 3, name: "—", amount: null, badge: null, badgeColor: null, title: null },
     { rank: 4, name: "—", amount: null, badge: null, badgeColor: null, title: null },
@@ -72,20 +307,17 @@ const TOP_NASI: Array<{
 
 // Funding goal
 const FUNDING_GOAL = 1000;
-const CURRENT_FUNDING = 0; // Update as donations come in
+const CURRENT_FUNDING = 0;
 
-// Achievement unlocks
-const ACHIEVEMENTS = [
-  { icon: "🥇", name: "Primul Naș", description: "Be the first to donate", unlocked: false },
-  { icon: "🎯", name: "Jumătate!", description: "Help reach 50% of goal", unlocked: false },
-  { icon: "🏆", name: "Obiectiv Atins", description: "Help reach the goal", unlocked: false },
-  { icon: "👑", name: "Top Naș", description: "Become #1 on leaderboard", unlocked: false },
-];
+type Language = 'en' | 'nl' | 'ro';
 
 export default function Home() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
+  const [lang, setLang] = useState<Language>('en');
   const fundingPercentage = Math.min((CURRENT_FUNDING / FUNDING_GOAL) * 100, 100);
+
+  const t = translations[lang];
 
   // Confetti effect when hovering popular tier
   const handleTierHover = (amount: number) => {
@@ -94,6 +326,21 @@ export default function Home() {
       setTimeout(() => setShowConfetti(false), 1000);
     }
   };
+
+  // Language flags
+  const flags: Record<Language, string> = {
+    en: '🇬🇧',
+    nl: '🇳🇱',
+    ro: '🇷🇴',
+  };
+
+  // Achievements with translations
+  const achievements = [
+    { icon: "🥇", nameKey: "achFirst" as const, unlocked: false },
+    { icon: "🎯", nameKey: "achHalf" as const, unlocked: false },
+    { icon: "🏆", nameKey: "achGoal" as const, unlocked: false },
+    { icon: "👑", nameKey: "achTop" as const, unlocked: false },
+  ];
 
   return (
     <>
@@ -117,10 +364,22 @@ export default function Home() {
           <span>Botez Invites</span>
         </div>
         <div className="nav-tabs">
-          <div className="nav-tab active">Home</div>
+          <div className="nav-tab active">{t.home}</div>
         </div>
         <div className="header-actions">
-          <button className="preview-btn">Preview</button>
+          {/* Language Switcher */}
+          <div className="language-switcher">
+            {(Object.keys(flags) as Language[]).map((langKey) => (
+              <button
+                key={langKey}
+                onClick={() => setLang(langKey)}
+                className={`lang-btn ${lang === langKey ? 'active' : ''}`}
+                title={langKey.toUpperCase()}
+              >
+                {flags[langKey]}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
@@ -144,13 +403,13 @@ export default function Home() {
             </div>
             <div className="event-info">
               <h1 className="event-title">Matteo Kaya Botez</h1>
-              <p className="event-date">Sat, Feb 7, 2:00 PM - 3:00 PM</p>
+              <p className="event-date">{t.eventDate}</p>
               <div className="location-pill">
-                Romanian Orthodox Church of St Gregory the Theologian in Schiedam
+                {t.churchName}
               </div>
               <button className="rsvp-btn">
                 <span>🙏</span>
-                RSVP to Ceremony
+                {t.rsvpButton}
               </button>
             </div>
           </div>
@@ -163,22 +422,20 @@ export default function Home() {
               <span>👨‍👩‍👦</span>
             </div>
             <div>
-              <div className="card-title">Kaya Family</div>
-              <div className="card-subtitle">Host Note</div>
+              <div className="card-title">{t.hostTitle}</div>
+              <div className="card-subtitle">{t.hostSubtitle}</div>
             </div>
           </div>
           <div style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '15px', lineHeight: '1.6' }}>
             <p style={{ marginBottom: '12px' }}>
-              Dear family and friends,
+              {t.hostDear}
             </p>
             <p style={{ marginBottom: '12px' }}>
-              We are blessed to invite you to witness the holy baptism of our beloved son,
+              {t.hostMessage1}
               <strong style={{ color: '#d4a853' }}> Matteo Kaya Botez</strong>.
             </p>
             <p>
-              Join us for this sacred ceremony as Matteo receives his Christian name and
-              becomes a member of the Orthodox Church. Your presence and prayers mean
-              everything to us. 🕊️
+              {t.hostMessage2}
             </p>
           </div>
         </div>
@@ -190,15 +447,15 @@ export default function Home() {
               <span>🎁</span>
             </div>
             <div>
-              <div className="card-title">Nași & Gifts</div>
-              <div className="card-subtitle">Bless Matteo & Unlock Achievements</div>
+              <div className="card-title">{t.nasiTitle}</div>
+              <div className="card-subtitle">{t.nasiSubtitle}</div>
             </div>
           </div>
 
           {/* Funding Goal Progress */}
           <div className="funding-goal">
             <div className="funding-header">
-              <span className="funding-label">🎯 Funding Goal</span>
+              <span className="funding-label">🎯 {t.fundingGoal}</span>
               <span className="funding-amount">€{CURRENT_FUNDING} / €{FUNDING_GOAL}</span>
             </div>
             <div className="progress-bar-container">
@@ -221,7 +478,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <p className="funding-subtitle">Help us reach our goal for Matteo's future!</p>
+            <p className="funding-subtitle">{t.fundingHelp}</p>
           </div>
 
           {/* Gift Amount Options with Badges */}
@@ -241,14 +498,14 @@ export default function Home() {
                 </div>
                 <span className="gift-emoji-large">{tier.emoji}</span>
                 <span className="gift-amount-large">{tier.label}</span>
-                <span className="tier-title">{tier.title}</span>
-                {tier.popular && <span className="popular-badge-animated">🔥 Popular</span>}
+                <span className="tier-title">{t[tier.titleKey as keyof typeof t]}</span>
+                {tier.popular && <span className="popular-badge-animated">🔥 {t.popular}</span>}
               </a>
             ))}
           </div>
 
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', textAlign: 'center', marginTop: '16px' }}>
-            Every gift unlocks a unique badge & title! ✨
+            {t.everyGift}
           </p>
         </div>
 
@@ -259,8 +516,8 @@ export default function Home() {
               <span>🏆</span>
             </div>
             <div>
-              <div className="card-title">Top 5 Nași</div>
-              <div className="card-subtitle">Hall of Fame</div>
+              <div className="card-title">{t.leaderboardTitle}</div>
+              <div className="card-subtitle">{t.leaderboardSubtitle}</div>
             </div>
           </div>
 
@@ -278,7 +535,7 @@ export default function Home() {
                   {nasi.rank > 3 && <span className="rank-number">{nasi.rank}</span>}
                 </div>
                 <div className="nasi-info">
-                  <span className="nasi-name">{nasi.name}</span>
+                  <span className="nasi-name">{nasi.name || t.beFirst}</span>
                   {nasi.title && (
                     <span className="nasi-title" style={{ color: nasi.badgeColor || '#d4a853' }}>
                       {nasi.title}
@@ -301,23 +558,22 @@ export default function Home() {
 
           {/* Achievement Badges */}
           <div className="achievements-section">
-            <div className="achievements-header">🎖️ Achievements to Unlock</div>
+            <div className="achievements-header">{t.achievementsTitle}</div>
             <div className="achievements-grid">
-              {ACHIEVEMENTS.map((achievement, index) => (
+              {achievements.map((achievement, index) => (
                 <div
                   key={index}
                   className={`achievement-badge ${achievement.unlocked ? 'unlocked' : 'locked'}`}
-                  title={achievement.description}
                 >
                   <span className="achievement-icon">{achievement.icon}</span>
-                  <span className="achievement-name">{achievement.name}</span>
+                  <span className="achievement-name">{t[achievement.nameKey]}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', textAlign: 'center', marginTop: '16px' }}>
-            Be among the first to claim your spot! 🎉
+            {t.beAmong}
           </p>
         </div>
 
@@ -328,8 +584,8 @@ export default function Home() {
               <span>🌤️</span>
             </div>
             <div>
-              <div className="card-title">Weather</div>
-              <div className="card-subtitle">On the Day</div>
+              <div className="card-title">{t.weatherTitle}</div>
+              <div className="card-subtitle">{t.weatherSubtitle}</div>
             </div>
           </div>
           <div className="weather-display">
@@ -339,33 +595,33 @@ export default function Home() {
             </div>
             <div className="weather-condition">
               <div>☁️</div>
-              <div className="weather-status">Partly Cloudy</div>
+              <div className="weather-status">{t.partlyCloudy}</div>
               <div className="weather-hi-lo">H: 10° L: 5°</div>
             </div>
           </div>
           <div className="hourly-forecast">
             <div className="hour-item">
-              <span>2 PM</span>
+              <span>14:00</span>
               <span className="hour-icon">⛅</span>
               <span>8°</span>
             </div>
             <div className="hour-item">
-              <span>2:30</span>
+              <span>14:30</span>
               <span className="hour-icon">☁️</span>
               <span>8°</span>
             </div>
             <div className="hour-item">
-              <span>3 PM</span>
+              <span>15:00</span>
               <span className="hour-icon">⛅</span>
               <span>7°</span>
             </div>
             <div className="hour-item">
-              <span>3:30</span>
+              <span>15:30</span>
               <span className="hour-icon">☁️</span>
               <span>7°</span>
             </div>
             <div className="hour-item">
-              <span>4 PM</span>
+              <span>16:00</span>
               <span className="hour-icon">🌙</span>
               <span>6°</span>
             </div>
@@ -379,8 +635,8 @@ export default function Home() {
               <span>📍</span>
             </div>
             <div>
-              <div className="card-title">Maps</div>
-              <div className="card-subtitle">Romanian Orthodox Church of St Gregory...</div>
+              <div className="card-title">{t.mapsTitle}</div>
+              <div className="card-subtitle">{t.churchName.substring(0, 40)}...</div>
             </div>
           </div>
           <div className="map-container">
@@ -408,7 +664,7 @@ export default function Home() {
                 textDecoration: 'none'
               }}
             >
-              Get Directions →
+              {t.getDirections}
             </a>
           </div>
         </div>
@@ -420,8 +676,8 @@ export default function Home() {
               <span>📸</span>
             </div>
             <div>
-              <div className="card-title">Photos</div>
-              <div className="card-subtitle">Shared Album</div>
+              <div className="card-title">{t.photosTitle}</div>
+              <div className="card-subtitle">{t.sharedAlbum}</div>
             </div>
           </div>
           <div className="photos-grid">
@@ -431,7 +687,7 @@ export default function Home() {
           </div>
           <div className="add-photos-btn">
             <span>•••</span>
-            <span>Add Photos</span>
+            <span>{t.addPhotos}</span>
           </div>
         </div>
 
@@ -442,24 +698,24 @@ export default function Home() {
               <span>📋</span>
             </div>
             <div>
-              <div className="card-title">Event Details</div>
-              <div className="card-subtitle">What to Know</div>
+              <div className="card-title">{t.detailsTitle}</div>
+              <div className="card-subtitle">{t.detailsSubtitle}</div>
             </div>
           </div>
           <div style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', lineHeight: '1.7' }}>
             <div style={{ marginBottom: '16px' }}>
-              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>📅 Date & Time</div>
-              <div>Saturday, February 7, 2026</div>
-              <div>2:00 PM - 3:00 PM</div>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>📅 {t.dateTime}</div>
+              <div>{lang === 'en' ? 'Saturday, February 7, 2026' : lang === 'nl' ? 'Zaterdag, 7 februari 2026' : 'Sâmbătă, 7 Februarie 2026'}</div>
+              <div>14:00 - 15:00</div>
             </div>
             <div style={{ marginBottom: '16px' }}>
-              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>⛪ Church</div>
-              <div>Romanian Orthodox Church</div>
-              <div>St Gregory the Theologian</div>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>⛪ {t.church}</div>
+              <div>{lang === 'en' ? 'Romanian Orthodox Church' : lang === 'nl' ? 'Roemeens-Orthodoxe Kerk' : 'Biserica Ortodoxă Română'}</div>
+              <div>{lang === 'en' ? 'St Gregory the Theologian' : lang === 'nl' ? 'H. Gregorius de Theoloog' : 'Sf. Grigorie Teologul'}</div>
             </div>
             <div>
-              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>👔 Dress Code</div>
-              <div>Smart Casual / Semi-Formal</div>
+              <div style={{ fontWeight: '600', color: '#d4a853', marginBottom: '4px' }}>👔 {t.dressCode}</div>
+              <div>{t.dressCodeValue}</div>
             </div>
           </div>
         </div>
@@ -471,20 +727,20 @@ export default function Home() {
               <span>💌</span>
             </div>
             <div>
-              <div className="card-title">Contact</div>
-              <div className="card-subtitle">Get in Touch</div>
+              <div className="card-title">{t.contactTitle}</div>
+              <div className="card-subtitle">{t.contactSubtitle}</div>
             </div>
           </div>
           <div className="link-preview">
             <div className="link-avatar">M</div>
             <div>
               <div style={{ fontWeight: '500' }}>Matteo Kaya Botez</div>
-              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>Guest of Honor 👶</div>
+              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>{t.guestOfHonor}</div>
             </div>
           </div>
           <div style={{ marginTop: '16px', padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', textAlign: 'center' }}>
             <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', marginBottom: '12px' }}>
-              Questions? Reach out to us!
+              {t.questions}
             </p>
             <a
               href="mailto:cihat@glodinasfinance.com"
@@ -507,8 +763,8 @@ export default function Home() {
         color: 'rgba(255,255,255,0.4)',
         fontSize: '13px'
       }}>
-        <p style={{ marginBottom: '8px' }}>With love from the Kaya & Botez Family</p>
-        <p>✝ God Bless Matteo ✝</p>
+        <p style={{ marginBottom: '8px' }}>{t.footerLove}</p>
+        <p>{t.footerBless}</p>
       </footer>
     </>
   );

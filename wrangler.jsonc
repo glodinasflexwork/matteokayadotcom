@@ -28,5 +28,18 @@
 			"pattern": "www.matteokaya.com",
 			"custom_domain": true
 		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "matteo-rsvp",
+			"database_id": "4002d11d-de01-411a-9e0c-58873776d4a4"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "matteo_media",
+			"bucket_name": "matteo-media"
+		}
 	]
 }
